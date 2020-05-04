@@ -5,9 +5,10 @@
 using namespace cv;
 using namespace std;
 
-/** In this script we use the Hough Line Transform
-**  1 - We load image data base into a vector.
-**  2-
+/** In this script we use the Standard and Probabilistic Hough Line Transform
+**  1 - Loading an image.
+**  2 - Retierve edges
+**  3 - Apply the Transform, draw the lines then export to a new image.  
 **/
 
 int main(int argc, char** argv)
