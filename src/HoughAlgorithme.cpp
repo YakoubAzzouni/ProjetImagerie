@@ -8,7 +8,7 @@ using namespace std;
 /** In this script we use the Standard and Probabilistic Hough Line Transform
 **  1 - Loading an image.
 **  2 - Retierve edges
-**  3 - Apply the Transform, draw the lines then export to a new image.  
+**  3 - Apply the Transform, draw the lines then export to a new image.
 **/
 
 int main(int argc, char** argv)
@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     Mat dst, cdst, cdstP;
 
     /** Load Data base images **/
-    Mat src = imread( "/home/lbenboudiaf/Bureau/ProjetImagerie/bdd/esc5.jpg", IMREAD_GRAYSCALE );
+    Mat src = imread( "/home/lbenboudiaf/Bureau/ProjetImagerie/bdd/bddProf/esc7.jpg", IMREAD_GRAYSCALE );
 
     /** Check if image is loaded fine **/
     if(src.empty()){
@@ -84,8 +84,8 @@ int main(int argc, char** argv)
     imshow("Probabilistic Line Transform", cdstP);
 
     /** Save results sample **/
-    imwrite("../bdd/HoughResults/esc5-Standard.jpg",cdstP);
-    imwrite("../bdd/HoughResults/esc5-Prob.jpg",cdstP);
+    imwrite("../bdd/bddProf/HoughResults/esc6-Standard.jpg",cdstP);
+    imwrite("../bdd/bddProf/HoughResults/esc6-Prob.jpg",cdstP);
 
     // Wait and Exit
     waitKey();
