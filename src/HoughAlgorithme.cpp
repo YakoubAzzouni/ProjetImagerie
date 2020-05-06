@@ -14,10 +14,11 @@ using namespace std;
 int main(int argc, char** argv)
 {
     /** Declare the output variables **/
-    Mat dst, cdst, cdstP;
+    Mat dst, cdst, cdstP, cdstSmooth;
+    int MAX_KERNEL_LENGTH = 27;
 
     /** Load Data base images **/
-    Mat src = imread( "/home/lbenboudiaf/Bureau/ProjetImagerie/bdd/bddProf/esc7.jpg", IMREAD_GRAYSCALE );
+    Mat src = imread( "/home/lbenboudiaf/Bureau/ProjetImagerie/bdd/bddProf/esc5.jpg", IMREAD_GRAYSCALE );
 
     /** Check if image is loaded fine **/
     if(src.empty()){
@@ -25,10 +26,16 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    /**Edge detection by using a Canny detector **/
-    Canny(src, dst, 50, 200, 3);
+    /** Apply medain filter **/
+    cdstSmooth = src.clone();
+    for (int i = 1; i < MAX_KERNEL_LENGTH; i = i + 2 ){
+      medianBlur ( src, cdstSmooth, i );
+    }
 
-    /** Copy edges to the images that will display the results in BGR **/
+    /**Edge detection by using a Canny detector **/
+    Canny(cdstSmooth, dst, 50, 200, 3);
+
+    /** Copy edges to the images that will display the results in Gray **/
     cvtColor(dst, cdst, COLOR_GRAY2BGR);
     cdstP = cdst.clone();
 
@@ -80,12 +87,13 @@ int main(int argc, char** argv)
 
     /** Display Original Image , Standard and Probabilistic Hough Transform **/
     imshow("Original image ", src);
+    imshow("Smooth image ", cdstSmooth);
     imshow("Standard Hough Line Transform", cdst);
     imshow("Probabilistic Line Transform", cdstP);
 
     /** Save results sample **/
-    imwrite("../bdd/bddProf/HoughResults/esc6-Standard.jpg",cdstP);
-    imwrite("../bdd/bddProf/HoughResults/esc6-Prob.jpg",cdstP);
+    imwrite("../bdd/bddProf/HoughResults/esc5-Standard.jpg",cdst);
+    imwrite("../bdd/bddProf/HoughResults/esc5-Prob.jpg",cdstP);
 
     // Wait and Exit
     waitKey();
